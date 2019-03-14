@@ -1,14 +1,82 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  background-color: #337FD7;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/************ Bar chart **************/
+
+.title {
+  font-size: 1.4em;
+  font-weight: 300;
+}
+
+.bar-group .name-label {
+  text-anchor: end;
+  font-weight: 300;
+  font-size: 1em;
+  fill: #333;
+}
+
+.bar-group .value-label {
+  text-anchor: end;
+  fill: #fff;
+  font-weight: 900;
+  font-size: 0.7em;
+}
+
+.isZero {
+  visibility: hidden;
+}
+
+.isOne {
+  text-anchor: start !important;
+}
+
+
+
+.bar-container .bar-group {
+  transition: opacity 0.3s;
+}
+
+/* Fade bars when the chart is hovered */
+.bar-container:hover .bar-group {
+  opacity: 0.3;
+}
+
+/* But don't fade the hovered bar... */
+.bar-container .bar-group:hover {
+  opacity: 1;
+}
+
+.bar-container .bar-group:hover .name-label {
+  font-weight: 400;
+}
+
+.bar-container .bar-group:hover .value-label {
+  font-size: 0.8em;
 }
