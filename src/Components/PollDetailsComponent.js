@@ -12,30 +12,56 @@ class PollDetailsComponent extends React.Component {
   onVote(newPoint, prevPoint) {
     const pollId = this.props.match.params.id
     const data = this.props.poll.data
+    const userVotes = this.props.profile.votes
     // Add a vote to newPoint, and remove a vote from prevPoint
     const newData1 = data.map(el => (el.name === newPoint ? Object.assign({}, el, { value: el.value + 1 }) : el))
     const newData2 = newData1.map(el => (el.name === prevPoint ? Object.assign({}, el, { value: el.value - 1 }) : el))
 
-    this.props.votePoll(pollId, newData2)
+    // Kollar igenom votes och ändrar ett objekt om den finns, om den inte hitter något vill du skapa ett nytt objekt
+    let found = false
+    const newUserVotes = userVotes.map(el => {
+      if (el.id === pollId) {
+        found = true
+        return Object.assign({}, el, { point: newPoint })
+      } else {
+        return el
+      }
+    })
+    if (!found) {
+      newUserVotes.push({
+        id: pollId,
+        point: newPoint
+      })
+    }
+    // console.log("auth:", this.props.auth.uid);
+
+    this.props.votePoll(pollId, newData2, newUserVotes, this.props.auth.uid)
   }
 
   render() {
-    const { poll } = this.props
-    if (poll) {
+    const { poll, profile } = this.props
+    if (poll && profile.isLoaded) {
       return (
         <div className="d-block h-100 row align-items-center justify-content-center pt-5 pb-5">
           <div className="row">
             <div className="col">
               <div className="card">
                 <div className="card-body w-100">
-                  <BarChartView data={poll.data} task={poll.task} />
+                  <BarChartView
+                    data={poll.data}
+                    task={poll.task}
+                    />
                 </div>
               </div>
             </div>
           </div>
           <div className="row pb-5 mt-3">
             <div className="col">
-              <ButtonGroupView onVote={this.onVote.bind(this)} />
+              <ButtonGroupView
+                onVote={this.onVote.bind(this)}
+                pollId={this.props.match.params.id}
+                profile={this.props.profile}
+                />
             </div>
           </div>
         </div>
@@ -56,14 +82,17 @@ export const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id
   const polls = state.firestore.data.polls
   const poll = polls ? polls[id] : null
+  console.log("state:", state);
   return {
-    poll
+    poll,
+    profile: state.firebase.profile,
+    auth: state.firebase.auth
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    votePoll: (poll, point) => dispatch(votePoll(poll, point))
+    votePoll: (pollId, newData, newUserVotes, uid) => dispatch(votePoll(pollId, newData, newUserVotes, uid))
   }
 }
 

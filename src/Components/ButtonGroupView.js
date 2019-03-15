@@ -6,7 +6,20 @@ class ButtonGroupView extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      selected: ''
+      selected: this.checkSelected()
+    }
+  }
+
+  checkSelected() {
+    // Checks previous selected point and returns it
+    const { votes } = this.props.profile
+
+    if (votes.some(e => e.id === this.props.pollId)) {
+      return votes.find(obj => {
+        return obj.id === this.props.pollId
+      }).point
+    } else {
+      return ''
     }
   }
 

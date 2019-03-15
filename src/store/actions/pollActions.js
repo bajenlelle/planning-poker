@@ -31,15 +31,23 @@ export const createPoll = (task, username) => {
   }
 }
 
-export const votePoll = (pollId, newData) => {
+export const votePoll = (pollId, newData, newUserVotes, uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // async code to firebase here
     const firestore = getFirestore()
     const pollRef = firestore.collection('polls').doc(pollId)
+    console.log("uid:", uid);
+    const userRef = firestore.collection('users').doc(uid)
+
 
     pollRef.update({
       data: newData
     })
+      .then(() => {
+        return userRef.update({
+          votes: newUserVotes
+        })
+      })
       .then(() => {
         dispatch({ type: 'POLL_VOTE_SUCCESS' })
       })
