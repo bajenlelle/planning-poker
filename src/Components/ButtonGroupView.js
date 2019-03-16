@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 class ButtonGroupView extends React.Component {
@@ -50,10 +51,20 @@ class ButtonGroupView extends React.Component {
     })
 
     return (
-      <div className="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="btn-toolbar justify-content-center align-items-center" role="toolbar" aria-label="Toolbar with button groups">
+        <h2 className="align-middle mr-2 text-secondary">Vote here:</h2>
         <div className="btn-group mr-2" role="group" aria-label="First group">
           { buttons }
         </div>
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <Link
+            hidden
+            to='/polls'><button
+            type="button"
+            className="btn btn-lg rounded-pill btn-primary"
+              >OK</button>
+            </Link>
+          </div>
       </div>
     )
   }

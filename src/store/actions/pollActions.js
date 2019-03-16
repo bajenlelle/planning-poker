@@ -36,7 +36,6 @@ export const votePoll = (pollId, newData, newUserVotes, uid) => {
     // async code to firebase here
     const firestore = getFirestore()
     const pollRef = firestore.collection('polls').doc(pollId)
-    console.log("uid:", uid);
     const userRef = firestore.collection('users').doc(uid)
 
 

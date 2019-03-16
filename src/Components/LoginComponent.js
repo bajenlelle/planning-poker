@@ -34,8 +34,16 @@ class LoginComponent extends React.Component {
     })
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleSubmit()
+    }
+  }
+
   handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
     // remove whitespaces
     const username = this.state.username.split(' ').join('')
@@ -56,7 +64,7 @@ class LoginComponent extends React.Component {
               <div className="form-group">
                 <div className="row justify-content-center">
                   <div className="col-6">
-                    <input onChange={this.handleChange.bind(this)} type="text" className="form-control" placeholder="Username"/>
+                    <input onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} type="text" className="form-control" placeholder="Username"/>
                   </div>
                 </div>
               </div>

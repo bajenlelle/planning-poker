@@ -32,7 +32,7 @@ class App extends Component {
             { (isLoaded && !auth.uid) && <LoginComponent /> }
             { !isLoaded &&
               <div className="h-100 row align-items-center justify-content-center">
-                <div className="spinner-border text-light" role="status">
+                <div className="spinner-border text-dark" role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>

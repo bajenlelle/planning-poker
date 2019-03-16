@@ -3,8 +3,18 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { signOut } from '../store/actions/authActions'
 import Avatar from 'react-avatar'
+import CreatePollModal from '../Modals/CreatePollModal'
+import { createPoll } from '../store/actions/pollActions'
+
 
 class NavigationBar extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      show: false
+    }
+  }
 
   loggedInLinks() {
     const { email } = this.props.auth
@@ -16,18 +26,28 @@ class NavigationBar extends React.Component {
     )
   }
 
+  toggleShow() {
+    this.setState({ show: !this.state.show });
+  }
+
   render() {
     const { auth } = this.props
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <CreatePollModal
+          createPoll={this.props.createPoll}
+          userEmail={this.props.userEmail}
+          show={this.state.show}
+          toggleShow={this.toggleShow.bind(this)}
+           />
         <Link className="navbar-brand" to="/">Planner</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <Link className="nav-item nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
-            <Link className="nav-item nav-link" to="/polls">Polls</Link>
+            <Link className="nav-item nav-link" to="/polls">View polls</Link>
+            <Link to='#' onClick={this.toggleShow.bind(this)} className="nav-item nav-link">Create Poll <span className="sr-only">(current)</span></Link>
           </div>
           { auth.uid && this.loggedInLinks() }
         </div>
@@ -38,13 +58,15 @@ class NavigationBar extends React.Component {
 
 export const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    userEmail: state.firebase.auth.email
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: () => dispatch(signOut())
+    signOut: () => dispatch(signOut()),
+    createPoll: (poll, username) => dispatch(createPoll(poll, username))
   }
 }
 

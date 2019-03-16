@@ -20,7 +20,9 @@ class HomeComponent extends React.Component {
 
   render() {
     return (
-          <div className="h-100 row align-items-center justify-content-center">
+        <div className="h-100x containerx">
+          <h1 className="mt-5 pb-5 mb-5 display-4 text-dark text-center">Planning Poker</h1>
+          <div className="mt-5 pt-5 h-100 row align-items-center justify-content-center">
             <CreatePollModal
               createPoll={this.props.createPoll}
               userEmail={this.props.userEmail}
@@ -32,6 +34,7 @@ class HomeComponent extends React.Component {
               <Link to="/polls" className="list-group-item list-group-item-action">View Polls</Link>
             </div>
           </div>
+        </div>
     )
   }
 }

@@ -18,6 +18,12 @@ class CreatePollModal extends React.Component {
     return toast('Poll created!')
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleSubmit()
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       task: e.target.value
@@ -25,12 +31,14 @@ class CreatePollModal extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
     const username = this.props.userEmail.split("@")[0]
     this.props.createPoll(this.state.task, username)
     this.notify()
-    // this.props.toggleShow()
+    this.props.toggleShow()
     history.push('/polls')
 
 
@@ -48,7 +56,7 @@ class CreatePollModal extends React.Component {
               <div className="form-group">
                 <div className="row justify-content-center">
                   <div className="col-6">
-                    <input onChange={this.handleChange.bind(this)} type="text" className="form-control" placeholder="Task"/>
+                    <input onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} type="text" className="form-control" placeholder="Task"/>
                   </div>
                 </div>
               </div>
@@ -56,7 +64,7 @@ class CreatePollModal extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.props.toggleShow}>
-              Close
+              Cancel
             </Button>
             <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
               Create poll
