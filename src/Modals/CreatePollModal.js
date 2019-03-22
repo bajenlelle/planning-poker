@@ -6,10 +6,13 @@ import history from '../utils/history'
 
 
 class CreatePollModal extends React.Component {
+  // Modal for creating a new poll, handles creatPoll action
+
   constructor(props){
     super(props)
     this.state = {
       task: '',
+      description: '',
       show: false
     }
   }
@@ -26,7 +29,7 @@ class CreatePollModal extends React.Component {
 
   handleChange = (e) => {
     this.setState({
-      task: e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
@@ -35,8 +38,9 @@ class CreatePollModal extends React.Component {
       e.preventDefault();
     }
 
+
     const username = this.props.userEmail.split("@")[0]
-    this.props.createPoll(this.state.task, username)
+    this.props.createPoll(this.state.task, this.state.description, username)
     this.notify()
     this.props.toggleShow()
     history.push('/polls')
@@ -56,7 +60,14 @@ class CreatePollModal extends React.Component {
               <div className="form-group">
                 <div className="row justify-content-center">
                   <div className="col-6">
-                    <input onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} type="text" className="form-control" placeholder="Task"/>
+                    <input name="task" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} type="text" className="form-control" placeholder="Task"/>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="row justify-content-center">
+                  <div className="col-6">
+                    <textarea name="description" onChange={this.handleChange.bind(this)} className="form-control" placeholder="Description" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                 </div>
               </div>

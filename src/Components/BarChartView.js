@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+// Renders the bar chart
 function BarGroup(props) {
   let barPadding = 2
   let barColour = '#348AA7'
@@ -39,9 +40,9 @@ class BarChartView extends React.Component {
     let barGroups = this.state.data.map((d, i) => <g key={i} transform={`translate(0, ${i * barHeight})`}>
                                                     <BarGroup d={d} barHeight={barHeight} />
                                                   </g>)
-    return <svg width="500" height="450" >
+    return <svg width="1000" height="450" >
       <g className="bar-container">
-        <text className="title" x="10" y="30">Voting results</text>
+        <text className="title" x="10" y="30">Voting results for task: {this.props.task}</text>
         <g className="chart" transform="translate(100,60)">
           {barGroups}
         </g>

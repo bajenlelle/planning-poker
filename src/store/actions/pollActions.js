@@ -1,9 +1,11 @@
-export const createPoll = (task, username) => {
+// Create a new poll
+export const createPoll = (task, description, username) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // async code to firebase here
     const firestore = getFirestore()
     firestore.collection('polls').add({
       task,
+      description,
       creator: username,
       createdAt: new Date(),
       data: [
@@ -31,6 +33,7 @@ export const createPoll = (task, username) => {
   }
 }
 
+// Vote on a point in a poll
 export const votePoll = (pollId, newData, newUserVotes, uid) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // async code to firebase here

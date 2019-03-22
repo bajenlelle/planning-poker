@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 class PollListItem extends React.Component {
+  // Each item in the /polls list
+
   render() {
     const { poll } = this.props
     return (

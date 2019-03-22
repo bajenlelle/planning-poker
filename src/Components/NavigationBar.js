@@ -66,7 +66,7 @@ export const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
-    createPoll: (poll, username) => dispatch(createPoll(poll, username))
+    createPoll: (task, description, username) => dispatch(createPoll(task, description, username))
   }
 }
 

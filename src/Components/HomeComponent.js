@@ -6,6 +6,7 @@ import { createPoll } from '../store/actions/pollActions'
 
 
 class HomeComponent extends React.Component {
+  // Renders View Polls and Create Poll buttons on start page
 
   constructor(props){
     super(props)
@@ -41,7 +42,7 @@ class HomeComponent extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createPoll: (poll, username) => dispatch(createPoll(poll, username))
+    createPoll: (task, description, username) => dispatch(createPoll(task, description, username))
   }
 }
 

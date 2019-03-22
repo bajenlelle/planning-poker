@@ -2,6 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
+// Config for firebase
+
 var config = {
   apiKey: "AIzaSyAwCE6YPmjiYz1S3Mntxk-wZ_OGsmUWWTE",
   authDomain: "planner-app-c96bd.firebaseapp.com",

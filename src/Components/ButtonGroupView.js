@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 class ButtonGroupView extends React.Component {
+  // Renders and controls the vote buttons on the Poll page
 
   constructor(props){
     super(props)

@@ -8,6 +8,7 @@ import CreatePollModal from '../Modals/CreatePollModal'
 import  { createPoll } from '../store/actions/pollActions'
 
 class PollsComponent extends React.Component {
+  // Renders in /polls, lists every poll
 
   constructor(props){
     super(props)
@@ -82,7 +83,7 @@ export const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createPoll: (poll, username) => dispatch(createPoll(poll, username))
+    createPoll: (task, description, username) => dispatch(createPoll(task, description, username))
   }
 }
 

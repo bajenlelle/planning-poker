@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 
 
 class LoginComponent extends React.Component {
+  // Login modal that shows when user is not logged in.
 
   constructor(props){
     super(props)

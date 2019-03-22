@@ -6,9 +6,22 @@ import { compose } from 'redux'
 import ButtonGroupView from './ButtonGroupView'
 import BarChartView from './BarChartView'
 import { votePoll } from '../store/actions/pollActions'
+import PollDescriptionModal from '../Modals/PollDescriptionModal'
 
 
 class PollDetailsComponent extends React.Component {
+  // Renders the poll page, handles vote action
+
+  constructor(props){
+    super(props)
+    this.state = {
+      show: false
+    }
+  }
+
+  toggleDescription(){
+    this.setState({ show: !this.state.show });
+  }
 
   onVote(newPoint, prevPoint) {
     const pollId = this.props.match.params.id
@@ -44,7 +57,15 @@ class PollDetailsComponent extends React.Component {
     if (poll && profile.isLoaded) {
       return (
         <div>
-          <Link to='/polls'><button className="btn btn-secondary mt-4">Back to polls</button></Link>
+          <PollDescriptionModal
+            show={this.state.show}
+            toggleDescription={this.toggleDescription.bind(this)}
+            description={poll.description}
+            />
+          <div className="row justify-content-between">
+            <Link to='/polls'><button className="btn btn-secondary mt-4">Back to polls</button></Link>
+            <button onClick={this.toggleDescription.bind(this)} className="btn btn-primary mt-4">Read poll description</button>
+          </div>
           <div className="d-block h-100 row align-items-center justify-content-center pt-4 pb-5">
             <div className="card">
               <div className="row">
